@@ -1,0 +1,146 @@
+# Practical 1: Stopword Removal using NLTK
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+text = "This is a sample sentence showing stopword removal."
+
+stop_words = set(stopwords.words('english'))
+tokens = word_tokenize(text.lower())
+filtered_tokens = [word for word in tokens if word not in stop_words]
+
+print("Original:", tokens)
+print("Filtered:", filtered_tokens)
+
+# Practical 2: Word Tokenization
+from nltk.tokenize import word_tokenize
+
+text = """Natural Language Processing (NLP) is a branch of Artificial Intelligence.
+It enables computers to understand, interpret, and generate human language."""
+
+words = word_tokenize(text)
+
+print("List of Words:")
+print(words)
+
+
+# Practical 3: Multilingual Sentence Tokenization (Spanish)
+from nltk.tokenize import sent_tokenize
+
+spanish_text = "¡Hola amigo! ¿Cómo estás? Hoy es un gran día para programar en Python."
+spanish_sentences = sent_tokenize(spanish_text, language='spanish')
+
+print("--- Spanish Tokenization ---")
+print(spanish_sentences)
+
+# Practical 4: Word Tokenization and Multilingual Stopwords List
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+text = "Natural Language Processing is an interesting field."
+
+print("\nText:")
+print(text)
+
+words = word_tokenize(text)
+print("\nList of words:")
+print(words)
+
+languages = ['english', 'french', 'german', 'spanish']
+
+for language in languages:
+    print("\nCommon Stop words in", language.capitalize(), ":")
+    print(stopwords.words(language)[:10])
+
+# Practical 5: Finding Synonyms and Antonyms using WordNet
+from nltk.corpus import wordnet
+
+nltk.download('wordnet')
+
+word = input("Enter a word: ")
+synonyms = set()
+antonyms = set()
+
+for syn in wordnet.synsets(word):
+    for lemma in syn.lemmas():
+        synonyms.add(lemma.name())
+        for antonym in lemma.antonyms():
+            antonyms.add(antonym.name())
+
+print("\nWord:", word)
+
+print("\nSynonyms:")
+if synonyms:
+    for synonym in sorted(synonyms):
+        print(synonym)
+else:
+    print("No synonyms found.")
+
+print("\nAntonyms:")
+if antonyms:
+    for antonym in sorted(antonyms):
+        print(antonym)
+else:
+    print("No antonyms found.")
+
+
+# Practical 6: Lemmatization with NLTK and POS Tagging
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+
+words = ["playing", "played", "plays", "studies",
+         "studying", "better", "dogs", "children"]
+
+print("Word\t\tLemma")
+print("-------------------------")
+
+for word in words:
+    lemma = lemmatizer.lemmatize(word)
+    print(word, "\t\t", lemma)
+
+print("\nLemmatization with POS:")
+print("playing ->", lemmatizer.lemmatize("playing", pos="v"))
+print("studies  ->", lemmatizer.lemmatize("studies", pos="v"))
+print("better   ->", lemmatizer.lemmatize("better", pos="a"))
+print("children ->", lemmatizer.lemmatize("children", pos="n"))
+
+
+# Practical 7: Sentiment Analysis using TextBlob
+from textblob import TextBlob
+
+tweets = [
+    "I love this new phone. It is amazing!",
+    "This movie was excellent and I really enjoyed it.",
+    "The service was very slow and disappointing.",
+    "I hate this product. It is terrible.",
+    "The weather is okay today.",
+    "Python is a great programming language!"
+]
+
+print("Twitter Sentiment Analysis")
+print("==========================")
+
+for tweet in tweets:
+    analysis = TextBlob(tweet)
+    polarity = analysis.sentiment.polarity
+
+    if polarity > 0:
+        sentiment = "Positive"
+    elif polarity < 0:
+        sentiment = "Negative"
+    else:
+        sentiment = "Neutral"
+
+    print("\nTweet:", tweet)
+    print("Polarity:", polarity)
+    print("Sentiment:", sentiment)
+
+
+
+
+
